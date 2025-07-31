@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      background: url('images/choose.jpg');
+      background-size: cover;
+      background-position: center -85px;
+    }
+    #arjuna{
+      position: fixed;
+      bottom: 55px;
+      right: 350px;
+      display: none;
+    }
+    #duryodhana{
+      position: fixed;
+      top: 125px;
+      left: 360px;
+      display: none;
+    }
+    #preloadImage{
+      display: none;
+    }
+    button{
+      position: relative;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: transparent;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.5s ease;
+    }
+    button:hover {
+      transform:scale(1.5);
+    }
+    button:active {
+      opacity: 0.6;
+      transform: scale(0.98);
+    }
+    #happy{
+      color: whitesmoke;
+      background: #4CAF50;
+      border: none;
+    }
+    #happy:hover{
+      color: #4CAF50;
+      background-color: whitesmoke;
+      border: 1px solid #4CAF50;
+    }
+    #peace{
+      color: whitesmoke;
+      background: #EC407A;
+      border: none;
+    }
+    #peace:hover{
+      color: #EC407A;
+      background-color: whitesmoke;
+      border: 1px solid #EC407A;
+    }
+    #protection{
+      color: whitesmoke;
+      background: #FBC02D;
+      border: none;
+    }
+    #protection:hover{
+      color: #FBC02D;
+      background-color: whitesmoke;
+      border: 1px solid #FBC02D;
+    }
+    #sadness{
+      color: whitesmoke;
+      background: #00BCD4;
+      border: none;
+    }
+    #sadness:hover{
+      color: #00BCD4;
+      background-color: whitesmoke;
+      border: 1px solid #00BCD4;
+    }
+    #anger{
+      color: whitesmoke;
+      background: #F44336;
+      border: none;
+    }
+    #anger:hover{
+      color: #F44336;
+      background-color: whitesmoke;
+      border: 1px solid #F44336;
+    }
+    #anxious{
+      color: whitesmoke;
+      background: #37474F;
+      border: none;
+    }
+    #anxious:hover{
+      color: #37474F;
+      background-color: whitesmoke;
+      border: 1px solid #37474F;
+    }
+    #loneliness{
+      color: whitesmoke;
+      background: #9C27B0;
+      border: none;
+    }
+    #loneliness:hover{
+      color: #9C27B0;
+      background-color: whitesmoke;
+      border: 1px solid #9C27B0;
+    }
+    #laziness{
+      color: whitesmoke;
+      background: #3E2723;
+      border: none;
+    }
+    #laziness:hover{
+      color: #3E2723;
+      background-color: whitesmoke;
+      border: 1px solid #3E2723;
+    }
+  </style>
+</head>
+<body>
+  <img id="preloadImage" src="images/choose.jpg">
+  <div id="arjuna">
+    <button id="happy" onclick="sloka('happy')" style="left: 25px;" title="Read this to celebrate your happiness">Happy</button>
+    <button id="peace" onclick="sloka('peace')" style="left: 45px;" title="Read this when you're seeking peace">Peace</button><br><br>
+    <button id="protection" onclick="sloka('protection')" title="Click this when you need to feel safe">Protection</button>
+    <button id="sadness" onclick="sloka('sadness')" style="left: 20px;" title="Open this when you're feeling sad">Sadness</button>
+  </div>
+
+  <div id="duryodhana">
+    <button id="anger" onclick="sloka('anger')" style="left: 30px;" title="Open this when you're feeling angry">Anger</button>
+    <button id="anxious" onclick="sloka('anxious')" style="left: 55px;" title="Click here when you're feeling anxious">Anxious</button><br><br>
+    <button id="loneliness" onclick="sloka('loneliness')" title="Open this when you feel alone">Loneliness</button>
+    <button id="laziness" onclick="sloka('laziness')" style="left: 22px;" title="Click here when you need a little motivation">Laziness</button>
+  </div>
+
+  <script>
+    function sloka(mood)
+    {
+      location.href=`slokas.html?mood=${mood}`;
+    }
+    document.getElementById('preloadImage').onload =function(){
+      document.getElementById('arjuna').style.display='block';
+      document.getElementById('duryodhana').style.display='block';
+    };
+  </script>
+</body>
+</html>

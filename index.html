@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    span{
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: xx-large;
+      color: #ffe066;
+      font-weight: bold;
+    }
+    #text{
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: xx-large;
+      color: #ffe066;
+      font-weight: bold;
+      transition: filter 0.6s ease;
+      filter: drop-shadow(0 0 0px transparent);  
+      cursor: pointer;
+    }
+    #text:hover {
+      filter: drop-shadow(0 0 10px #ffe066);
+    }
+    .glow {
+      filter: drop-shadow(0 0 20px #ffe066);
+    }
+    img {
+      transition: filter 0.6s ease-in-out;
+    }
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body style="background-color: #18181b;">
+  <audio src="music/krishna_flute.mp3" autoplay loop id="removeAudio"></audio>  
+  <div style="display: flex;" id="removeDiv">
+    <div>
+      <img id="krishna" src="images/krishna.png" width="750" height="750" style="margin-top: -40px;margin-left: 10px;">
+    </div>
+    <div style="align-items: center;justify-content: center;display: flex;">
+      <div id="text" onclick="play()">
+        <span>Join Madhava, as He steers your spirit through the path of righteousness.</span><br>
+        <span style="margin-left: 350px;">— Tap to Begin</span>
+      </div> 
+    </div>
+  </div>
+  
+
+  <script>
+    document.getElementById("text").addEventListener('mouseenter',()=>{
+      document.getElementById('krishna').classList.add('glow');
+    });
+
+    document.getElementById("text").addEventListener('mouseleave',()=>{
+      document.getElementById('krishna').classList.remove('glow');
+    });
+
+    function play()
+    {
+      let fullscreen=document.body;
+      if(fullscreen.requestFullscreen) fullscreen.requestFullscreen();
+      else if(fullscreen.webkitRequestFullscreen) fullscreen.webkitRequestFullscreen();
+      else if(fullscreen.msRequestFullscreen) fullscreen.msRequestFullscreen();
+      
+      document.body.removeChild(document.getElementById("removeDiv"));
+      document.body.removeChild(document.getElementById("removeAudio"));
+      
+      document.body.innerHTML=`<video id="war" src="video/Krsna Book.mkv" autoplay playsinline></video>`;
+      document.getElementById("war").addEventListener('ended',function(){
+        window.location.href="mood.html";
+      });
+
+      let keyboard=document.getElementById("war");
+      document.addEventListener('keydown',(e)=>{
+        if(e.key===" ")
+        {
+          if(keyboard.paused) keyboard.play();
+          else keyboard.pause();
+        }
+      });
+    }
+  </script>
+</body>
+</html>

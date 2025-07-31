@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+  <title>Document</title>
+  <style>
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .content{
+      position: fixed;
+      bottom: 70px;
+      left: 50px;
+      font-family: font;
+      font-size: 27px;
+      width: 700px;
+      text-align: left;
+    }
+    @font-face {
+      font-family: 'font';
+      src: url('font/Potti Sreeramulu.otf') format('opentype');
+    }
+    #sloka{
+      color: #FFDE9E;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+    }
+    #meaning{
+      color: #FFACAC;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+    }
+    #explanation{
+      color: #AECFFF;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+    }
+    #lang{
+      background-color: transparent;
+      border: none;
+      text-decoration: underline;
+      cursor: pointer;
+      font-family: 'Tiro Devanagari Sanskrit', serif;
+      color: whitesmoke;
+      font-size: large;
+      margin-top: 10px;
+      margin-left: 400px;
+    }
+    #lang:active{
+      color: red;
+    }
+    .sanskrit{
+      font-family: 'Tiro Devanagari Sanskrit', serif;
+    }
+    .english{
+      font-family: 'Merriweather', serif;
+      font-size: 22px;
+    }
+  </style>
+</head>
+<body>
+  <video src="video/upadesh.mp4" autoplay loop playsinline></video>
+  <audio id="audio" autoplay></audio>
+
+  <div class="content">
+    <div>
+      <span style="color: #FFDE9E;text-shadow: 0 0 8px rgba(255, 222, 158, 0.5);">📜 <span id="slokaHeading" style="text-decoration: underline;">శ్లోకం :</span><br>
+      <div id="sloka">
+        
+      </div>
+    </div>
+    
+    <br>
+
+    <div>
+      <span style="color: #FFACAC;text-shadow: 0 0 8px rgba(255, 172, 172, 0.4);" >🪔 <span id="meaningHeading" style="text-decoration: underline;">అర్థం :</span></span><br>
+      <div id="meaning">
+        
+      </div>
+      
+    </div>
+
+    <br>
+
+    <div>
+      <span style="color: #AECFFF;text-shadow: 0 0 8px rgba(174, 207, 255, 0.5);" >🧠 <span id="explanationHeading" style="text-decoration: underline;">భావం :</span><br>
+      <div id="explanation">
+        
+      </div>
+    </div>
+    <button value="english" onclick="disp(this.value)" id="lang">Translate to English</button>
+  </div>
+
+  <script>
+
+    let mood=new URLSearchParams(window.location.search).get("mood");
+    console.log(mood)
+    let angryAudio=["2.11.mp3"];
+    let protectionAudio=["2.47.mp3"];
+    let happyAudio=["4.24.mp3"];
+    let anxiousAudio=["6.35.mp3"]; 
+    let lonelinessAudio=["9.22.mp3"];
+    let lazinessAudio=["14.8.mp3"];
+    let peaceAudio=["11.32.mp3"];
+    let sadnessAudio=["18.66.mp3"];
+
+    let angrySloka=[
+      "శ్రీ భగవానువాచ<br>అశోచ్యానన్వశోచస్త్వం ప్రజ్ఞావాదాంశ్చ భాషసే |<br>గతాసూనగతాసూంశ్చ నానుశోచంతి పండితాః || 2.11",];
+
+    let angrySlokaEnglish=[
+      "श्रीभगवानुवाच <br>अशोच्यानन्वशोचस्त्वं प्रज्ञावादांश्च भाषसे |<br>गतासूनगतासूंश्च नानुशोचन्ति पण्डिताः || 2.11",
+    ];
+
+    let angryMeaning=[
+      "శ్రీకృష్ణుడు అన్నాడు:<br>దుఃఖింప తగని వారిని గూర్చి దుఃఖించుట అనుచితము.ఆత్మానాత్మ వివేకులు అనిత్యములైన శరీరములను గూర్చిగాని,నిత్యములు, శాశ్వతములు అయిన ఆత్మలను గూర్చిగాని దుఃఖింపరు."
+    ];
+
+    let angryMeaningEnglish=[
+      "The Blessed Lord said:You are grieving for those who should not be grieved for, yet you speak words of wisdom.<br>The wise do not grieve for the living or the dead."
+    ];
+
+    let angryExplanation=[
+      "ఇది శ్రీకృష్ణుడు మొదటిసారి మాట్లాడిన శ్లోకం.అర్జునుడు భయంతో, మానసిక కలవరం తో తన బంధువుల విషయంలో తికమకపడుతున్న సమయంలో,భావోద్వేగాలతో బాధపడే బుద్ధిమంతుడు కాదని కృష్ణుడు స్పష్టంగా చెప్తున్నాడు."
+    ];
+
+    let angryExplanationEnglish=[
+      "Krishna begins His teaching by pointing out that Arjuna is confused — showing sorrow for something that doesn’t warrant sorrow. Krishna emphasizes that true wisdom lies in understanding the imperishable nature of the soul, and that wise people understand the distinction between the eternal and the temporary."
+    ];
+
+    let protectionSloka=[
+      "కర్మణ్యేవాధికారస్తే మా ఫలేషు కదాచన |<br>మా కర్మఫలహేతుర్భూర్మా తే సంగోస్త్వకర్మణి || 2.47"
+    ];
+
+    let protectionSlokaEnglish=[
+      "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन |<br>मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि || 2.47"
+    ];
+
+    let protectionMeaning=[
+      "కర్మలను ఆచరించుట యందే నీకు అధికారము కలదు కాని, వాని ఫలితముపైన లేదు. నీవు కర్మఫలమునకు కారణము కారాదు. అట్లని కర్మలను చేయుట మానరాదు."
+    ];
+
+    let protectionMeaningEnglish=[
+      "You have a right to perform your prescribed duties,but you are not entitled to the fruits of your actions.Never consider yourself the cause of the results of your activities,and never be attached to not doing your duty."
+    ];
+
+    let protectionExplanation=[
+      "ఈ శ్లోకం భగవద్గీత యొక్క హృదయం అని చెప్పవచ్చు.శ్రీకృష్ణుడు అంటున్నాడు — నీ విధిని నిర్వర్తించు,ఫలితంపై ఆశ లేకుండా.ఇది నిష్కామ కర్మయోగం అనే సిద్ధాంతానికి మూలసూత్రం."
+    ];
+
+    let protectionExplanationEnglish=[
+      "Krishna teaches selfless action (Nishkama Karma) here.He encourages Arjuna to: Focus on doing one’s duty sincerely,Let go of attachment to success or failure,And avoid laziness or inaction.This is a cornerstone verse of Karma Yoga — the path of action without attachment."
+    ];
+
+    let happySloka=[
+      "బ్రహ్మార్పణం బ్రహ్మ హవిర్ బ్రహ్మాగ్నౌ బ్రహ్మణా హుతం |<br>బ్రహ్మైవ తేన గంతవ్యం బ్రహ్మకర్మ సమాధినా || 4.24"
+    ];
+
+    let happySlokaEnglish=[
+      "ब्रह्मार्पणं ब्रह्म हविर्ब्रह्माग्नौ ब्रह्मणा हुतम् |<br>ब्रह्मैव तेन गन्तव्यं ब्रह्मकर्मसमाधिना || 4.24"
+    ];
+
+    let happyMeaning=[
+      "యజ్ఞపాత్రము బ్రహ్మము. హోమద్రవ్యము బ్రహ్మము. అగ్ని బ్రహ్మము. హోమము చేయువాడు బ్రహ్మము. బ్రహ్మకర్మ సమాధి చేత పొందనగు ఫలము గూడ బ్రహ్మమనియే తలంచవలయును."
+    ];
+
+    let happyMeaningEnglish=[
+      "The act of offering is Brahman,the offering itself is Brahman,the fire (sacrificial altar) is Brahman,and the one who offers is also Brahman.One who realizes Brahman in all actions attains Brahman alone."
+    ];
+
+    let happyExplanation=[
+      "ఈ శ్లోకం సర్వం బ్రహ్మమే అనే అద్వైత భావాన్ని వ్యక్తపరుస్తుంది.యజ్ఞమూ, అర్పణమూ, అగ్నియు, హోమమూ — అన్నీ పరమాత్మస్వరూపాలే.బ్రహ్మకర్మ సమాధి అంటే కర్మలో లీనమై బ్రహ్మ తత్వాన్ని గ్రహించడమే."
+    ];
+
+    let happyExplanationEnglish=[
+      "This verse is a beautiful summary of non-dual spiritual vision (Advaita) — When a person performs any action with the realization that everything is divine, all action becomes a sacred offering, and that person is united with the Divine.This is the essence of Karma Yoga with Jnana (wisdom)."
+    ];
+
+    let anxiousSloka=[
+      "అసంశయం మహాబాహో మనో దుర్నిగ్రహం చలమ్ |<br> అభ్యాసేనతు కౌంతేయ వైరాగ్యేణ చ గృహ్యతే || 6.35"
+    ];
+
+    let anxiousSlokaEnglish=[
+      "असंशयं महाबाहो मनो दुर्निग्रहं चलम् |<br>अभ्यासेन तु कौन्तेय वैराग्येण च गृह्यते || 6.35"
+    ];
+
+    let anxiousMeaning=[
+      "అర్జునా! ఎట్టివానికైనను మనస్సును నిశ్చలముగా నిల్పుట దుస్సాధ్యమే. అయినను దానిని అభ్యాసవైరాగ్యములచేత నిరోధింప వచ్చును."
+    ];
+
+    let anxiousMeaningEnglish=[
+      "O mighty-armed one, without a doubt the mind is restless and difficult to control.But, O son of Kunti, it can be controlled by constant practice (abhyāsa) and detachment (vairāgya)."
+    ];
+
+    let anxiousExplanation=[
+      "ఈ శ్లోకంలో కృష్ణుడు ధ్యానయోగంలో మనసు నియంత్రణ గురించి చెప్తున్నాడు.అర్జునుడు తన మనస్సు అల్లాడుతుందని చెప్పినపుడు — శ్రీకృష్ణుడు ధైర్యం ఇచ్చి చెబుతున్నాడు: నిరంతర సాధన + అసక్తి ద్వారా మనసు కూడా శాంతించగలదు."
+    ];
+
+    let anxiousExplanationEnglish=[
+      "Krishna acknowledges Arjuna’s concern — the mind is indeed hard to master.But He gives the solution: Regular spiritual practice, Developing detachment from outcomes and desires.These two are the keys to mastering the wandering mind — especially in meditation and yoga."
+    ];
+
+    let lonelinessSloka=[
+      "అనన్యాశ్చింతయంతో మాం యే జనాః పర్యుపాసతే |<br>తేషాం నిత్యాభియుక్తానాం యోగక్షేమం వహామ్యహం || 9.22"
+    ];
+
+    let lonelinessSlokaEnglish=[
+      "अनन्याश् चिन्तयन्तो मां ये जनाः पर्युपासते |<br>तेषां नित्याभियुक्तानां योगक्षेमं वहाम्यहम् || 9.22"
+    ];
+
+    let lonelinessMeaning=[
+      "ఏ మానవుడు సర్వకాల సర్వావస్థలయందును నన్నే ధ్యానించుచుండునో అట్టివాని యోగక్షేమములు నేనే వహించుచున్నాను."
+    ];
+
+    let lonelinessMeaningEnglish=[
+      "To those who are ever steadfast, who worship Me with single-minded devotion, I personally carry what they lack and preserve what they have."
+    ];
+
+    let lonelinessExplanation=[
+      "ఈ శ్లోకం భగవద్గీతలో అత్యంత మధురమైన, భక్తిని పెంపొందించే శ్లోకాలలో ఒకటి.భగవంతునిపై నిరంతర శ్రద్ధ, నమ్మకం, మరియు విశ్వాసం ఉంటే,వాడు మన యోగక్షేమాల బాధ్యతను తానే తీసుకుంటాడు — అర్థం, మనకు కావలసినదాన్ని ఇచ్చి, ఉన్నదాన్ని కాపాడతాడు.ఇది సంపూర్ణ శరణాగతి యొక్క మార్గాన్ని బోధించే శ్లోకం."
+    ];
+
+    let lonelinessExplanationEnglish=[
+      "This is one of the most comforting and powerful promises made by Krishna in the Gita.He tells Arjuna that if a devotee truly surrenders to Him, with no other desire or distraction, then: Krishna takes full responsibility for their life, He brings them what they need (yoga), and He protects what they already have (kṣema).This verse beautifully emphasizes complete surrender, trust, and divine grace."
+    ];
+
+    let lazinessSloka=[
+      "తమస్త్వజ్ఞానజం విద్ధి మోహనం సర్వదేహినామ్ |<br> ప్రమాదాలస్యనిద్రాభిః తన్నిబధ్నాతి భారత || 14.8"
+    ];
+
+    let lazinessSlokaEnglish=[
+      "तमस्त्वज्ञानजं विद्धि मोहनं सर्वदेहिनाम् |<br> प्रमादालस्यनिद्राभिस्तन्निबध्नाति भारत || 14.8"
+    ];
+
+    let lazinessMeaning=[
+      "అర్జునా! అజ్ఞానము వలన పుట్టునది తమోగుణము. అది సర్వప్రాణులను మొహింపజేయునది. ఆ గుణము మనుజుని ఆలస్యముతోను, అజాగ్రత్తతోను, నిద్రతోను బద్ధునిజేయును."
+    ];
+
+    let lazinessMeaningEnglish=[
+      "O Arjuna (O Bhārata), Know tamas (the mode of ignorance) to be born of ignorance.It deludes all embodied beings.It binds the soul through negligence, laziness, and sleep."
+    ];
+
+    let lazinessExplanation=[
+      "ఈ శ్లోకంలో శ్రీకృష్ణుడు తమోగుణం లక్షణాలను వివరిస్తున్నాడు.తమోగుణం అంటే:అజ్ఞానం,మోహం,అలసత,నిద్ర,మరియు క్రియలేని స్థితి.తమోగుణం మనసును తలకిందులుగా చేసి, మన పురోగతిని అడ్డుకుంటుంది."
+    ];
+
+    let lazinessExplanationEnglish=[
+      "In this verse, Krishna explains the third guna: Tamas.It is the lowest of the three gunas:It originates from ignorance.Causes delusion and confusion.Leads to inactivity, carelessness, and mental darkness.It holds a person back from clarity, action, and spiritual growth.Those dominated by tamas tend to procrastinate, sleep excessively, and avoid responsibilities."
+    ];
+
+    let peaceSloka=[
+      "అర్జునా! కాలోస్మి లోకక్షయకృత్ ప్రవృద్ధో లోకాన్ సమాహర్తుమిహ ప్రవృత్తః |<br> ఋతేపిత్వాం న భవిష్యంతి సర్వే యేవస్థితాః ప్రత్యనీకేషు యోధాః || 11.32"
+    ];
+
+    let peaceSlokaEnglish=[
+      "कालोऽस्मि लोकक्षयकृत् प्रवृद्धो लोकान्समाहर्तुमिह प्रवृद्धः |<br> ऋतेऽपि त्वां न भविष्यन्ति सर्वे येऽवस्थिताः प्रत्यनीकेषु योधाः || 11.32"
+    ];
+
+    let peaceMeaning=[
+      "అర్జునా! ఈ ప్రపంచమునెల్ల నశింపజేయు బలిష్టమైన కాలస్వరూపుడను నేనే. ఈ యుద్ధమునకు సిద్ధపడినవారిని నీవు చంపకున్ననూ బ్రతుకగల వారిందెవ్వరునూ లేరు."
+    ];
+
+    let peaceMeaningEnglish=[
+      "I am Time, the mighty destroyer of the worlds, and I have come here to annihilate all people.Even without you, all the warriors standing in the opposing armies shall cease to exist."
+    ];
+
+    let peaceExplanation=[
+      'ఈ శ్లోకం శివ తత్వాన్ని (కాల భయాన్ని) గుర్తు చేస్తుంది.శ్రీకృష్ణుడు విశ్వరూపంలో అర్జునుని ఎదురుగా మాట్లాడుతూ:"నేను కాలం — సర్వనాశక శక్తి.ఈ యోధులంతా నా ద్వారా ఇప్పటికే నాశనం చేయబడ్డారు.నీవు కేవలం నిమిత్తమాత్రుడవు."ఇది భగవానుడి అహంకారవిముక్తి బోధన, పరమేశ్వరుని అప్రతిహత శక్తిను వ్యక్తం చేస్తుంది.'
+    ];
+
+    let peaceExplanationEnglish=[
+      "This is one of the most famous and powerful verses in the Gita.Krishna, in His Vishwarupa (universal form), reveals His cosmic role: He is Time — unstoppable, inevitable, and all-consuming.All the warriors are already doomed by destiny, not by Arjuna’s action.Arjuna is simply a chosen instrument in the grand divine plan.This verse teaches: Detachment from doership, The reality of cosmic order, And surrender to the will of the Divine."
+    ];
+
+    let sadnessSloka=[
+      "సర్వధర్మాన్ పరిత్యజ్య మామేకం శరణం వ్రజ |<br> అహం త్వా సర్వపాపేభ్యో మోక్షయిష్యామి మా శుచః || 18.66"
+    ];
+
+    let sadnessSlokaEnglish=[
+      "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज |<br>अहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः || 18.66"
+    ];
+
+    let sadnessMeaning=[
+      "సమస్త కర్మల నాకర్పించి నన్నే శరణుబొందిన ఎల్ల పాపముల నుండి నిన్ను విముక్తుని గావింతును. నీవు చింతింపకుము."
+    ];
+
+    let sadnessMeaningEnglish=[
+      "Abandon all varieties of dharma (duties and religions), and simply surrender unto Me alone.I shall deliver you from all sinful reactions — do not fear."
+    ];
+
+    let sadnessExplanation=[
+      "ఇది భగవద్గీతలో చివరి ఉపదేశాల్లో అత్యంత గొప్ప శ్లోకం.శ్రీకృష్ణుడు చెబుతున్నాడు: అన్ని కర్మ ధర్మాలు కూడా పక్కనపెట్టి, నన్ను మాత్రమే శరణు కావాలి — అప్పుడు నీ పాపాలన్నింటినీ నేను క్షమిస్తాను.ఇది పరిపూర్ణ శరణాగతి యొక్క సంకేతం — భగవంతుడి అనుగ్రహం పొందాలంటే భక్తి, విశ్వాసం, మరియు సంపూర్ణ సమర్పణ అవసరం."
+    ];
+
+    let sadnessExplanationEnglish=[
+      "This is the most compassionate and ultimate instruction of Lord Krishna in the entire Gita. It teaches complete surrender: Let go of all rigid ideas about duty and righteousness.Seek refuge in Krishna alone, with full trust.He promises freedom from all sins and liberation.All He asks is: surrender without fear.This verse is often considered the essence of the Gita — the call to total devotion, trust, and divine grace."
+    ];
+
+    let sloka=document.getElementById("sloka");
+    let meaning=document.getElementById("meaning");
+    let explanation=document.getElementById("explanation");
+    let audio=document.getElementById("audio");
+
+    let random;
+
+    if(mood==="anger")
+    {
+      random=Math.floor(Math.random()*angrySloka.length);
+      sloka.innerHTML=angrySloka[random];
+      meaning.innerHTML=angryMeaning[random];
+      explanation.innerHTML=angryExplanation[random];
+      audio.src="angry audio/"+angryAudio[random];
+    }
+    else if(mood==="protection")
+    {
+      random=Math.floor(Math.random()*protectionSloka.length);
+      sloka.innerHTML=protectionSloka[random];
+      meaning.innerHTML=protectionMeaning[random];
+      explanation.innerHTML=protectionExplanation[random];
+      audio.src="protection audio/"+protectionAudio[random];
+    }
+    else if(mood==="happy")
+    {
+      random=Math.floor(Math.random()*happySloka.length);
+      sloka.innerHTML=happySloka[random];
+      meaning.innerHTML=happyMeaning[random];
+      explanation.innerHTML=happyExplanation[random];
+      audio.src="happy audio/"+happyAudio[random];
+    }
+    else if(mood==="anxious")
+    {
+      random=Math.floor(Math.random()*anxiousSloka.length);
+      sloka.innerHTML=anxiousSloka[random];
+      meaning.innerHTML=anxiousMeaning[random];
+      explanation.innerHTML=anxiousExplanation[random];
+      audio.src="anxious audio/"+anxiousAudio[random];
+    }
+    else if(mood==="loneliness")
+    {
+      random=Math.floor(Math.random()*lonelinessSloka.length);
+      sloka.innerHTML=lonelinessSloka[random];
+      meaning.innerHTML=lonelinessMeaning[random];
+      explanation.innerHTML=lonelinessExplanation[random];
+      audio.src="loneliness audio/"+lonelinessAudio[random];
+    }
+    else if(mood==="laziness")
+    {
+      random=Math.floor(Math.random()*lazinessSloka.length);
+      sloka.innerHTML=lazinessSloka[random];
+      meaning.innerHTML=lazinessMeaning[random];
+      explanation.innerHTML=lazinessExplanation[random];
+      audio.src="laziness audio/"+lazinessAudio[random];
+    }
+    else if(mood==="peace")
+    {
+      random=Math.floor(Math.random()*peaceSloka.length);
+      sloka.innerHTML=peaceSloka[random];
+      meaning.innerHTML=peaceMeaning[random];
+      explanation.innerHTML=peaceExplanation[random];
+      audio.src="peace audio/"+peaceAudio[random];
+    }
+    else if(mood==="sadness")
+    {
+      random=Math.floor(Math.random()*sadnessSloka.length);
+      sloka.innerHTML=sadnessSloka[random];
+      meaning.innerHTML=sadnessMeaning[random];
+      explanation.innerHTML=sadnessExplanation[random];
+      audio.src="sadness audio/"+sadnessAudio[random];
+    }
+
+    function disp(lang)
+    {
+      if(lang=="english")
+      {
+        if(mood==="anger")
+        {
+          sloka.innerHTML=angrySlokaEnglish[random];
+          meaning.innerHTML=angryMeaningEnglish[random];
+          explanation.innerHTML=angryExplanationEnglish[random];
+        }
+        else if(mood==="protection")
+        {
+          sloka.innerHTML=protectionSlokaEnglish[random];
+          meaning.innerHTML=protectionMeaningEnglish[random];
+          explanation.innerHTML=protectionExplanationEnglish[random];
+        }
+        else if(mood==="happy")
+        {
+          sloka.innerHTML=happySlokaEnglish[random];
+          meaning.innerHTML=happyMeaningEnglish[random];
+          explanation.innerHTML=happyExplanationEnglish[random];
+        }
+        else if(mood==="anxious")
+        {
+          sloka.innerHTML=anxiousSlokaEnglish[random];
+          meaning.innerHTML=anxiousMeaningEnglish[random];
+          explanation.innerHTML=anxiousExplanationEnglish[random];
+        }
+        else if(mood==="loneliness")
+        {
+          sloka.innerHTML=lonelinessSlokaEnglish[random];
+          meaning.innerHTML=lonelinessMeaningEnglish[random];
+          explanation.innerHTML=lonelinessExplanationEnglish[random];
+        }
+        else if(mood==="laziness")
+        {
+          sloka.innerHTML=lazinessSlokaEnglish[random];
+          meaning.innerHTML=lazinessMeaningEnglish[random];
+          explanation.innerHTML=lazinessExplanationEnglish[random];
+        }
+        else if(mood==="peace")
+        {
+          sloka.innerHTML=peaceSlokaEnglish[random];
+          meaning.innerHTML=peaceMeaningEnglish[random];
+          explanation.innerHTML=peaceExplanationEnglish[random];
+        }
+        else if(mood==="sadness")
+        {
+          sloka.innerHTML=sadnessSlokaEnglish[random];
+          meaning.innerHTML=sadnessMeaningEnglish[random];
+          explanation.innerHTML=sadnessExplanationEnglish[random];
+        }
+        document.getElementById("lang").innerText="Translate to Telugu"
+        sloka.classList.add("sanskrit");
+        meaning.classList.add("english");
+        explanation.classList.add("english");
+        document.getElementById("lang").value="telugu";
+        document.getElementById("slokaHeading").innerText="Verse :";
+        document.getElementById("meaningHeading").innerText="Meaning :";
+        document.getElementById("meaningHeading").classList.add("english");
+        document.getElementById("explanationHeading").innerText="Explanation :";
+        document.getElementById("explanationHeading").classList.add("english");
+      } 
+      else
+      {
+        if(mood==="anger")
+        {
+          sloka.innerHTML=angrySloka[random];
+          meaning.innerHTML=angryMeaning[random];
+          explanation.innerHTML=angryExplanation[random];
+        }
+        else if(mood==="protection")
+        {
+          sloka.innerHTML=protectionSloka[random];
+          meaning.innerHTML=protectionMeaning[random];
+          explanation.innerHTML=protectionExplanation[random];
+        }
+        else if(mood==="happy")
+        {
+          sloka.innerHTML=happySloka[random];
+          meaning.innerHTML=happyMeaning[random];
+          explanation.innerHTML=happyExplanation[random];
+        }
+        else if(mood==="anxious")
+        {
+          sloka.innerHTML=anxiousSloka[random];
+          meaning.innerHTML=anxiousMeaning[random];
+          explanation.innerHTML=anxiousExplanation[random];
+        }
+        else if(mood==="loneliness")
+        {
+          sloka.innerHTML=lonelinessSloka[random];
+          meaning.innerHTML=lonelinessMeaning[random];
+          explanation.innerHTML=lonelinessExplanation[random];
+        }
+        else if(mood==="laziness")
+        {
+          sloka.innerHTML=lazinessSloka[random];
+          meaning.innerHTML=lazinessMeaning[random];
+          explanation.innerHTML=lazinessExplanation[random];
+        }
+        else if(mood==="peace")
+        {
+          sloka.innerHTML=peaceSloka[random];
+          meaning.innerHTML=peaceMeaning[random];
+          explanation.innerHTML=peaceExplanation[random];
+        }
+        else if(mood==="sadness")
+        {
+          sloka.innerHTML=sadnessSloka[random];
+          meaning.innerHTML=sadnessMeaning[random];
+          explanation.innerHTML=sadnessExplanation[random];
+        }
+        document.getElementById("lang").innerText="Translate to English"
+        sloka.classList.remove("sanskrit");
+        meaning.classList.remove("english");
+        explanation.classList.remove("english");
+        document.getElementById("lang").value="english";
+        document.getElementById("slokaHeading").innerText="శ్లోకం :";
+        document.getElementById("meaningHeading").innerText="అర్థం :";
+        document.getElementById("meaningHeading").classList.remove("english");
+        document.getElementById("explanationHeading").innerText="భావం :";
+        document.getElementById("explanationHeading").classList.remove("english");
+      } 
+    }
+  </script>
+</body>
+</html>
