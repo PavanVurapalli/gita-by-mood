@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="icon" href="images/krishna icon.png">
+  <title>Join Madhava</title>
   <style>
     span{
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -37,6 +38,23 @@
       height: 100vh;
       object-fit: cover;
       z-index: -1;
+    }
+    .skip{
+      position: fixed;
+      bottom: 100px;
+      right: 150px;
+      color: whitesmoke;
+      background-color: transparent;
+      border: 1px solid whitesmoke;
+      padding: 10px;
+      filter: brightness(30%);
+      cursor: pointer;
+      transition: transform 0.5s ease;
+    }
+    .skip:hover{
+      filter: brightness(100%);
+      transform:scale(1.5);
+      transition: transform 0.5s ease;
     }
   </style>
 </head>
@@ -74,19 +92,29 @@
       document.body.removeChild(document.getElementById("removeDiv"));
       document.body.removeChild(document.getElementById("removeAudio"));
       
-      document.body.innerHTML=`<video id="war" src="video/Krsna Book.mkv" autoplay playsinline></video>`;
-      document.getElementById("war").addEventListener('ended',function(){
-        window.location.href="mood.html";
-      });
+      document.body.innerHTML=`
+      <video id="war" src="video/Krsna Book.mkv" autoplay playsinline></video>
+      <button onclick="location.href='mood.html'" class="skip">Skip Intro</button>
+      `;
+      setTimeout(()=>{
+        let keyboard=document.getElementById("war");
 
-      let keyboard=document.getElementById("war");
-      document.addEventListener('keydown',(e)=>{
-        if(e.key===" ")
-        {
-          if(keyboard.paused) keyboard.play();
-          else keyboard.pause();
-        }
-      });
+        keyboard.addEventListener('ended',function (){
+          window.location.href="mood.html";
+        });
+
+        document.addEventListener('keydown',(e)=>{
+          if (e.key===" ")
+          {
+            if (keyboard.paused) keyboard.play();
+            else keyboard.pause();
+          }
+          else if(e.key==="ArrowRight") keyboard.currentTime+=10;
+          else if(e.key==="ArrowLeft") keyboard.currentTime-=10;
+          else if(e.key==="ArrowUp") keyboard.volume=Math.min(keyboard.volume+0.1,1);
+          else if(e.key==="ArrowDown") keyboard.volume=Math.max(keyboard.volume-0.1,0);
+        });
+      },100);
     }
   </script>
 </body>
