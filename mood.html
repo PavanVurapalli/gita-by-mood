@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="icon" href="images/timer.png">
+  <title>What's your mood</title>
   <style>
     body{
       background: url('images/choose.jpg');
@@ -14,16 +15,11 @@
       position: fixed;
       bottom: 55px;
       right: 350px;
-      display: none;
     }
     #duryodhana{
       position: fixed;
       top: 125px;
       left: 360px;
-      display: none;
-    }
-    #preloadImage{
-      display: none;
     }
     button{
       position: relative;
@@ -124,7 +120,6 @@
   </style>
 </head>
 <body>
-  <img id="preloadImage" src="images/choose.jpg">
   <div id="arjuna">
     <button id="happy" onclick="sloka('happy')" style="left: 25px;" title="Read this to celebrate your happiness">Happy</button>
     <button id="peace" onclick="sloka('peace')" style="left: 45px;" title="Read this when you're seeking peace">Peace</button><br><br>
@@ -144,10 +139,6 @@
     {
       location.href=`slokas.html?mood=${mood}`;
     }
-    document.getElementById('preloadImage').onload =function(){
-      document.getElementById('arjuna').style.display='block';
-      document.getElementById('duryodhana').style.display='block';
-    };
   </script>
 </body>
 </html>
