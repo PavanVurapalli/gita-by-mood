@@ -102,7 +102,7 @@
 
     let mood=new URLSearchParams(window.location.search).get("mood");
     console.log(mood)
-    let angryAudio=["2.11.mp3"];
+    let angryAudio=["2.11.mp3","2.13.mp3"];
     let protectionAudio=["2.47.mp3"];
     let happyAudio=["4.24.mp3"];
     let anxiousAudio=["6.35.mp3"]; 
@@ -112,26 +112,33 @@
     let sadnessAudio=["18.66.mp3"];
 
     let angrySloka=[
-      "శ్రీ భగవానువాచ<br>అశోచ్యానన్వశోచస్త్వం ప్రజ్ఞావాదాంశ్చ భాషసే |<br>గతాసూనగతాసూంశ్చ నానుశోచంతి పండితాః || 2.11",];
+      "శ్రీ భగవానువాచ<br>అశోచ్యానన్వశోచస్త్వం ప్రజ్ఞావాదాంశ్చ భాషసే |<br>గతాసూనగతాసూంశ్చ నానుశోచంతి పండితాః || 2.11",
+      "దేహినోస్మిన్ యథా దేహే కౌమారం యౌవనం జరా |<br> తథా దేహాంతరప్రాప్తిః ధీరస్తత్ర న ముహ్యతి || 2.13"
+    ];
 
     let angrySlokaEnglish=[
       "श्रीभगवानुवाच <br>अशोच्यानन्वशोचस्त्वं प्रज्ञावादांश्च भाषसे |<br>गतासूनगतासूंश्च नानुशोचन्ति पण्डिताः || 2.11",
+      "देहिनोऽस्मिन्यथा देहे कौमारं यौवनं जरा |<br>तथा देहान्तरप्राप्तिर्धीरस्तत्र न मुह्यति || 2.13"
     ];
 
     let angryMeaning=[
-      "శ్రీకృష్ణుడు అన్నాడు:<br>దుఃఖింప తగని వారిని గూర్చి దుఃఖించుట అనుచితము.ఆత్మానాత్మ వివేకులు అనిత్యములైన శరీరములను గూర్చిగాని,నిత్యములు, శాశ్వతములు అయిన ఆత్మలను గూర్చిగాని దుఃఖింపరు."
+      "శ్రీకృష్ణుడు అన్నాడు:<br>దుఃఖింప తగని వారిని గూర్చి దుఃఖించుట అనుచితము.ఆత్మానాత్మ వివేకులు అనిత్యములైన శరీరములను గూర్చిగాని,నిత్యములు, శాశ్వతములు అయిన ఆత్మలను గూర్చిగాని దుఃఖింపరు.",
+      "జీవునకు దేహమునందు బాల్యము, యౌవనము, ముసలితనము ఎట్లో మరొక దేహమును పొందుటకు కూడా అట్లే. కనుక ఈ విషయమున ధీరులు మోహము నొందరు."
     ];
 
     let angryMeaningEnglish=[
-      "The Blessed Lord said:You are grieving for those who should not be grieved for, yet you speak words of wisdom.<br>The wise do not grieve for the living or the dead."
+      "The Blessed Lord said:You are grieving for those who should not be grieved for, yet you speak words of wisdom.<br>The wise do not grieve for the living or the dead.",
+      "Just as the embodied soul passes from childhood to youth to old age within this body, in the same way, at death, the soul passes into another body.The wise are not deluded by this."
     ];
 
     let angryExplanation=[
-      "ఇది శ్రీకృష్ణుడు మొదటిసారి మాట్లాడిన శ్లోకం.అర్జునుడు భయంతో, మానసిక కలవరం తో తన బంధువుల విషయంలో తికమకపడుతున్న సమయంలో,భావోద్వేగాలతో బాధపడే బుద్ధిమంతుడు కాదని కృష్ణుడు స్పష్టంగా చెప్తున్నాడు."
+      "ఇది శ్రీకృష్ణుడు మొదటిసారి మాట్లాడిన శ్లోకం.అర్జునుడు భయంతో, మానసిక కలవరం తో తన బంధువుల విషయంలో తికమకపడుతున్న సమయంలో,భావోద్వేగాలతో బాధపడే బుద్ధిమంతుడు కాదని కృష్ణుడు స్పష్టంగా చెప్తున్నాడు.",
+      "శ్రీకృష్ణుడు అర్జునునికి ఆత్మ యొక్క శాశ్వతత్వం గురించి చెబుతున్నాడు: శరీరం మారుతుంది — బాల్యం → యౌవనం → వృద్ధాప్యం.మరణం అనేది మరో మార్పు మాత్రమే — ఒక శరీరాన్ని విడిచి మరొకటి పొందడం.ఆత్మకు మరణం లేదు; అది ఎప్పటికీ నశించదు.ఈ సత్యాన్ని తెలిసినవారు బాధకు లోను కారు."
     ];
 
     let angryExplanationEnglish=[
-      "Krishna begins His teaching by pointing out that Arjuna is confused — showing sorrow for something that doesn’t warrant sorrow. Krishna emphasizes that true wisdom lies in understanding the imperishable nature of the soul, and that wise people understand the distinction between the eternal and the temporary."
+      "Krishna begins His teaching by pointing out that Arjuna is confused — showing sorrow for something that doesn’t warrant sorrow. Krishna emphasizes that true wisdom lies in understanding the imperishable nature of the soul, and that wise people understand the distinction between the eternal and the temporary.",
+      "Krishna explains to Arjuna the eternal nature of the soul: The body changes constantly — child, youth, old age — but you (the soul) remain the same.Death is simply another change — moving from one body to another.A wise person understands this and does not grieve over the change of bodies.This verse is the foundation of the Gita’s teaching on the immortality of the soul."
     ];
 
     let protectionSloka=[
@@ -503,3 +510,4 @@
 </body>
 
 </html>
+
